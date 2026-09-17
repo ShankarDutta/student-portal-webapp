@@ -15,7 +15,7 @@ const RootLayout = ({ children }: LayoutProps) => {
         interHeading.variable,
       )}>
       <body>
-        {children}
+        <main>{children}</main>
         <Toaster timeout={2000} />
       </body>
     </html>
