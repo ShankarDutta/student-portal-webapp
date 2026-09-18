@@ -11,7 +11,7 @@ import {
 
 const TopBar = () => {
   return (
-    <section className="hidden px-6 py-2 lg:flex lg:items-center lg:justify-between">
+    <section className="hidden bg-blue-400/4 px-6 py-2 lg:flex lg:items-center lg:justify-between">
       {/* Contact */}
       <div className="flex shrink-0 items-center gap-4">
         <a
