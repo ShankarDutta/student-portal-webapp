@@ -21,6 +21,7 @@ const NavBar = () => {
           alt="mars-academy-logo"
           height={400}
           width={400}
+          loading="eager"
           className="h-9 w-auto"
         />
       </Link>

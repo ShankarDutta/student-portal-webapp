@@ -13,7 +13,13 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/shadcnui/sheet";
-import { MenuIcon } from "lucide-react";
+import {
+  FileBadgeIcon,
+  HomeIcon,
+  IdCardIcon,
+  MenuIcon,
+  UserRoundCheckIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -31,7 +37,7 @@ const MobileNav = () => {
       </SheetTrigger>
 
       <SheetContent>
-        <SheetHeader>
+        <SheetHeader className="border-b-2">
           <AuroraText
             colors={["#833AB4", "#C13584", "#E1306C", "#FD1D1D", "#FCAF45"]}
             className="text-xl font-semibold whitespace-nowrap lg:hidden xl:block"
@@ -50,7 +56,12 @@ const MobileNav = () => {
               <MenubarItem
                 className="cursor-pointer hover:bg-blue-400/6 hover:text-blue-600 focus:bg-blue-400/6 focus:text-blue-600"
                 onClick={() => setIsOpen(false)}
-                render={<a href="https://marsacademy.in/">Back to Home</a>}
+                render={
+                  <a href="https://marsacademy.in/">
+                    <HomeIcon />
+                    Back to Home
+                  </a>
+                }
               />
 
               <MenubarItem
@@ -58,6 +69,7 @@ const MobileNav = () => {
                 onClick={() => setIsOpen(false)}
                 render={
                   <Link href="/student-zone/online-registration">
+                    <FileBadgeIcon />
                     Registration
                   </Link>
                 }
@@ -66,7 +78,11 @@ const MobileNav = () => {
               <MenubarItem
                 className={`${path === "/student-zone" ? "bg-blue-400/8 text-blue-600" : "cursor-pointer hover:bg-blue-400/8 hover:text-blue-600"} w-full focus:bg-blue-400/6 focus:text-blue-600`}
                 onClick={() => setIsOpen(false)}
-                render={<Link href="/student-zone">Student Login</Link>}
+                render={
+                  <Link href="/student-zone">
+                    <UserRoundCheckIcon /> Student Login
+                  </Link>
+                }
               />
 
               <MenubarItem
@@ -74,6 +90,7 @@ const MobileNav = () => {
                 onClick={() => setIsOpen(false)}
                 render={
                   <Link href="/student-zone/certificate-verification">
+                    <IdCardIcon />
                     Certificate Verification
                   </Link>
                 }
