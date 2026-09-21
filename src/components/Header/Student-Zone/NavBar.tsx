@@ -29,7 +29,7 @@ const NavBar = () => {
       <Menubar className="hidden space-x-4 border-0 shadow-none lg:flex">
         <MenubarMenu>
           <MenubarItem
-            className="cursor-pointer hover:bg-blue-400/6 hover:text-blue-600 focus:bg-blue-400/6 focus:text-blue-600"
+            className="focus:text-foreground cursor-pointer hover:bg-blue-400/6 hover:text-blue-600 focus:bg-transparent"
             render={<a href="https://marsacademy.in/">Back to Home</a>}
           />
 
