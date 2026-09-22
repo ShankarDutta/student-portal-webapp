@@ -32,7 +32,9 @@ const MobileNav = () => {
     <Sheet
       open={isOpen}
       onOpenChange={setIsOpen}>
-      <SheetTrigger className="mt-3">
+      <SheetTrigger
+        className="mt-3"
+        aria-label="Nav-Menu-Button">
         <MenuIcon />
       </SheetTrigger>
 
