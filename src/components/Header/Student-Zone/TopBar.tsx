@@ -11,7 +11,7 @@ import {
 
 const TopBar = () => {
   return (
-    <section className="hidden bg-blue-400/4 px-6 py-2 lg:flex lg:items-center lg:justify-between">
+    <header className="hidden bg-blue-400/4 px-6 py-2 lg:flex lg:items-center lg:justify-between">
       {/* Contact */}
       <div className="flex shrink-0 items-center gap-4">
         <a
@@ -65,7 +65,7 @@ const TopBar = () => {
           <span className="font-semibold text-black">500+ Learners</span>
         </Button>
       </div>
-    </section>
+    </header>
   );
 };
 

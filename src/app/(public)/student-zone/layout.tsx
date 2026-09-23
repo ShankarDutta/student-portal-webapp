@@ -5,10 +5,9 @@ import { LayoutProps } from "@/lib/types";
 const StudentZoneLayout = ({ children }: LayoutProps) => {
   return (
     <>
-      <header>
-        <TopBar />
-        <NavBar />
-      </header>
+      <TopBar />
+
+      <NavBar />
 
       {children}
     </>

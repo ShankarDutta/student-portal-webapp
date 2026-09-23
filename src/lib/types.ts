@@ -1,3 +1,4 @@
+import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import z from "zod";
 import { studentLoginSchema } from "./zodSchema";
@@ -7,3 +8,10 @@ export type LayoutProps = Readonly<{
 }>;
 
 export type StudentLoginSchemaType = z.infer<typeof studentLoginSchema>;
+
+export type RegistrationStepType = {
+  id: number;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+};
