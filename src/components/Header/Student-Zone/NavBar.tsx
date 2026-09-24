@@ -14,7 +14,7 @@ const NavBar = () => {
   const path = usePathname();
 
   return (
-    <nav className="sticky top-0 flex items-center justify-between px-6 py-2 shadow">
+    <nav className="sticky top-0 flex items-center justify-between bg-white px-6 py-2 shadow">
       <Link href={"/student-zone"}>
         <Image
           src="/logo.png"
