@@ -5,6 +5,7 @@ import { OnlineRegistrationFormSchemaType } from "@/lib/types";
 import { onlineRegistrationFormSchema } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import ky from "ky";
 import { ShieldCheckIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -64,10 +65,10 @@ const OnlineRegistrationForm = () => {
     // await new Promise<void>((r) => setTimeout(r, 1800));
 
     try {
-      const admissionData = {
-        ...sData,
-        dob: format(sData.dob, "dd/MM/yyyy"),
-      };
+      // const admissionData = {
+      //   ...sData,
+      //   dob: format(sData.dob, "dd/MM/yyyy"),
+      // };
 
       // if (!sData.acceptTerms) {
       //   return toast.add({
@@ -75,6 +76,36 @@ const OnlineRegistrationForm = () => {
       //     description: "Please Select Terms & Conditions",
       //   });
       // }
+
+      const admissionData = {
+        ...sData,
+        fullName: sData.fullName,
+        fatherName: sData.fatherName,
+        gender: sData.gender,
+        dob: format(sData.dob, "dd/MM/yyyy"),
+        emailId: sData.emailId,
+        phoneNumber: sData.phoneNumber,
+        whatsappNumber: sData.whatsappNumber,
+        Aadhaar: sData.Aadhaar,
+        lastQualification: sData.lastQualification,
+        address: sData.address,
+        course: sData.course,
+        duration: sData.duration,
+        acceptTerms: sData.acceptTerms,
+      };
+
+      const response = await ky
+        .post("/api/admission", {
+          json: admissionData,
+        })
+        .json<{
+          success: boolean;
+          message: string;
+        }>();
+
+      if (!response.success) {
+        throw new Error(response.message);
+      }
 
       if (!admissionData) {
         toast.add({

@@ -11,6 +11,12 @@ export const serverEnv = createEnv({
       .min(1, { error: "DATABASE_URL is required" }),
     NEXT_TELEMETRY_DISABLED: z.enum(["1", "0"]).optional(),
     CHECKPOINT_DISABLE: z.enum(["1", "0"]).optional(),
+    GOOGLE_SCRIPT_URL: z
+      .string()
+      .startsWith("https://script.google.com", {
+        error: "DATABASE_URL must start with file:./",
+      })
+      .min(1, { error: "DATABASE_URL is required" }),
   },
   experimental__runtimeEnv: process.env,
 });
