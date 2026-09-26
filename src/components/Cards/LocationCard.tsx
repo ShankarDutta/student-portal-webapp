@@ -9,11 +9,12 @@ const LocationCard = () => {
           src="/google_location.png"
           height={400}
           width={400}
+          loading="eager"
           alt="GBP_Qr"
-          className="mx-auto h-auto w-auto rounded-2xl lg:h-90"
+          className="mx-auto rounded-2xl lg:h-full lg:w-full"
         />
 
-        <CardTitle className="text-left text-xl font-bold md:text-2xl">
+        <CardTitle className="mt-2 text-left text-xl font-bold md:text-2xl">
           Scan the QR Code to View Our Google Business Profile
         </CardTitle>
       </CardHeader>

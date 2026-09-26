@@ -19,3 +19,44 @@ export const studentLoginSchema = z.object({
       error: "The password  is incorrect.",
     }),
 });
+
+export const onlineRegistrationFormSchema = z.object({
+  fullName: z.string().trim().min(4, { error: "Fill your full name" }),
+  fatherName: z.string().trim().min(4, { error: "Fill your father name" }),
+  gender: z.string().min(1, { error: "Select Your Gender" }),
+  dob: z
+    .date({
+      error: "Date of birth is required.",
+    })
+    .max(new Date(), {
+      error: "Date of birth cannot be in the future.",
+    }),
+  emailId: z.email({ error: "Invalid email address" }),
+  phoneNumber: z
+    .string()
+    .trim()
+    .length(10, { error: "Inavlid contact number" }),
+  whatsappNumber: z
+    .string()
+    .trim()
+    .length(10, { error: "Inavlid contact number" }),
+
+  gurdianNumber: z.string().length(10, { error: "Inavlid gurdian's number" }),
+  lastQualification: z
+    .string()
+    .min(2, { error: "Fill Your Last Qualification" }),
+  address: z
+    .string()
+    .trim()
+    .min(10, {
+      error:
+        "Please enter your complete address with City, District, P.O. and PIN code.",
+    })
+    .max(250, {
+      error: "Address must not exceed 250 characters.",
+    }),
+
+  course: z.string().min(1, { error: "Select your course" }),
+  duration: z.string().min(1, { error: "Select your course duration" }),
+  acceptTerms: z.boolean().refine((value) => value === true),
+});
