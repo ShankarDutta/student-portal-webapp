@@ -1,4 +1,4 @@
-import ThemeProvider from "@/components/Providers/ThemeProvider";
+import { Toaster } from "@/components/shadcnui/toast";
 import { geistMono, geistSans, interHeading } from "@/lib/fonts";
 import { LayoutProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -13,15 +13,10 @@ const RootLayout = ({ children }: LayoutProps) => {
         geistSans.variable,
         geistMono.variable,
         interHeading.variable,
-      )}
-      suppressHydrationWarning>
+      )}>
       <body>
-        <ThemeProvider
-          attribute={"class"}
-          defaultTheme="dark"
-          enableSystem={false}>
-          {children}
-        </ThemeProvider>
+        <main>{children}</main>
+        <Toaster timeout={2000} />
       </body>
     </html>
   );
