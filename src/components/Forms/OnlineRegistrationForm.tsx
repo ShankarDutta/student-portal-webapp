@@ -5,6 +5,7 @@ import { OnlineRegistrationFormSchemaType } from "@/lib/types";
 import { onlineRegistrationFormSchema } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import ky from "ky";
 import { ShieldCheckIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -49,7 +50,7 @@ const OnlineRegistrationForm = () => {
       emailId: "",
       phoneNumber: "",
       whatsappNumber: "",
-      gurdianNumber: "",
+      Aadhaar: "",
       lastQualification: "",
       address: "",
       course: "",
@@ -61,65 +62,119 @@ const OnlineRegistrationForm = () => {
   });
 
   const sendAddmissonData = async (sData: OnlineRegistrationFormSchemaType) => {
-    await new Promise<void>((r) => setTimeout(r, 1800));
-    const admissionData = {
-      ...sData,
-      dob: format(sData.dob, "dd/MM/yyyy"),
-    };
+    // await new Promise<void>((r) => setTimeout(r, 1800));
 
-    if (!sData.acceptTerms) {
-      return toast.add({
-        type: "error",
-        description: "Please Select Terms & Conditions",
-      });
-    }
+    try {
+      // const admissionData = {
+      //   ...sData,
+      //   dob: format(sData.dob, "dd/MM/yyyy"),
+      // };
 
-    if (!admissionData) {
+      // if (!sData.acceptTerms) {
+      //   return toast.add({
+      //     type: "error",
+      //     description: "Please Select Terms & Conditions",
+      //   });
+      // }
+
+      const admissionData = {
+        ...sData,
+        fullName: sData.fullName,
+        fatherName: sData.fatherName,
+        gender: sData.gender,
+        dob: format(sData.dob, "dd/MM/yyyy"),
+        emailId: sData.emailId,
+        phoneNumber: sData.phoneNumber,
+        whatsappNumber: sData.whatsappNumber,
+        Aadhaar: sData.Aadhaar,
+        lastQualification: sData.lastQualification,
+        address: sData.address,
+        course: sData.course,
+        duration: sData.duration,
+        acceptTerms: sData.acceptTerms,
+      };
+
+      const response = await ky
+        .post("/api/admission", {
+          json: admissionData,
+        })
+        .json<{
+          success: boolean;
+          message: string;
+        }>();
+
+      if (!response.success) {
+        throw new Error(response.message);
+      }
+
+      if (!admissionData) {
+        toast.add({
+          type: "error",
+          description: "Somethin went wrong! please try again",
+        });
+      } else {
+        toast.add({
+          type: "success",
+          description: "Registration Succefully Completed",
+        });
+        console.log(admissionData);
+
+        reset();
+        console.log(admissionData);
+      }
+    } catch (error) {
       toast.add({
         type: "error",
         description: "Somethin went wrong! please try again",
       });
-    } else {
-      toast.add({
-        type: "success",
-        description: "Registration Succefully Completed",
-      });
-      console.log(admissionData);
 
-      reset();
+      console.error(error);
     }
-
-    console.log(admissionData);
   };
 
   return (
     <Card className="h-auto border-0 bg-white shadow-lg outline-none xl:min-h-200">
       <CardContent className="text-left">
         {isSubmitSuccessful ?
-          <div className="space-y-6 text-center">
+          <div className="space-y-6 py-16 text-center">
             <div>
               <h2 className="text-2xl font-bold">
-                Registration Submitted Successfully! 🎉
+                Registration Submitted Successfully
               </h2>
-
               <p className="text-muted-foreground mt-2">
-                Thank you for choosing Mars Academy. Our team will contact you
-                within 2 working days.
+                Thank you for choosing Mars Academy. We have successfully
+                received your registration details.
               </p>
             </div>
-
             <div className="rounded-xl border p-4 text-left">
-              <p className="text-muted-foreground text-sm">Phone Number</p>
-              <p className="font-medium">8017564029</p>
-
-              <p className="text-muted-foreground mt-4 text-sm">
-                WhatsApp Number
+              <p className="font-semibold">What happens next?</p>
+              <p className="text-muted-foreground mt-2 text-sm">
+                Please wait for 1–2 working days. Our team will review your
+                registration and contact you shortly to confirm your admission
+                and provide you with the next steps.
               </p>
-              <p className="font-medium">7003398110</p>
             </div>
+            <div className="rounded-xl border p-4 text-left">
+              <p className="font-semibold">Have any questions?</p>
+              <p className="text-muted-foreground mt-2 text-sm">
+                If you have any questions about our courses, admission process,
+                fees, or class schedule, feel free to contact us.
+              </p>
+              <div className="mt-4 space-y-3">
+                <div>
+                  <p className="text-muted-foreground text-sm">WhatsApp</p>
+                  <p className="font-medium">7003398110</p>
+                </div>
 
+                <div>
+                  <p className="text-muted-foreground text-sm">Mobile</p>
+                  <p className="font-medium">8017564029</p>
+                </div>
+              </div>
+            </div>
             <p className="text-muted-foreground text-sm">
-              Please keep these numbers active for verification.
+              Please keep your phone and WhatsApp numbers active so we can reach
+              you without any difficulty.
             </p>
           </div>
         : <form
@@ -337,20 +392,20 @@ const OnlineRegistrationForm = () => {
                 />
 
                 <Controller
-                  name="gurdianNumber"
+                  name="Aadhaar"
                   control={control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={field.name}>
-                        Gurdian Number
+                        Aadhaar Number
                       </FieldLabel>
                       <Input
-                        type="tel"
+                        type="number"
                         {...field}
                         id={field.name}
                         aria-invalid={fieldState.invalid}
-                        placeholder="Gurdian number"
-                        autoComplete="tel"
+                        placeholder="Aadhaar number"
+                        autoComplete=""
                         className="h-12"
                       />
 
@@ -456,7 +511,7 @@ const OnlineRegistrationForm = () => {
                   control={control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>Duration</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Course type</FieldLabel>
                       <Select
                         name={field.name}
                         value={field.value}

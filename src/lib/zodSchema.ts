@@ -41,7 +41,7 @@ export const onlineRegistrationFormSchema = z.object({
     .trim()
     .length(10, { error: "Inavlid contact number" }),
 
-  gurdianNumber: z.string().length(10, { error: "Inavlid gurdian's number" }),
+  Aadhaar: z.string().length(12, { error: "Inavlid aadhaar number" }),
   lastQualification: z
     .string()
     .min(2, { error: "Fill Your Last Qualification" }),

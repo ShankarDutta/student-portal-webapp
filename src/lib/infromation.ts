@@ -27,19 +27,19 @@ export const registrationSteps: RegistrationStepType[] = [
 export const duration: DurationType[] = [
   {
     id: 1,
-    value: "3 months",
+    value: "Foundation Certificate",
   },
   {
     id: 2,
-    value: "6 months",
+    value: "Professional Certificate",
   },
   {
     id: 3,
-    value: "1 year",
+    value: "Advanced Diploma",
   },
   {
     id: 4,
-    value: "2 year",
+    value: "Master Diploma",
   },
 ];
 
